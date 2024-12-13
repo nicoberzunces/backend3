@@ -49,4 +49,42 @@ mocksRouter.post('/generateData', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/mocks/mockingusers:
+ *   get:
+ *     description: Obtiene usuarios simulados
+ *     responses:
+ *       200:
+ *         description: Devuelve una lista de usuarios
+ */
+mocksRouter.get('/mockingusers', (req, res) => {
+    // ...
+});
+
+/**
+ * @swagger
+ * /api/mocks/generateData:
+ *   post:
+ *     description: Genera datos de usuarios y mascotas
+ *     parameters:
+ *       - in: body
+ *         name: body
+ *         description: Información sobre cantidad de usuarios y mascotas a generar
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             users:
+ *               type: number
+ *             pets:
+ *               type: number
+ *     responses:
+ *       200:
+ *         description: Respuesta con mensaje de confirmación
+ */
+mocksRouter.post('/generateData', async (req, res) => {
+    // ...
+});
+
 export default mocksRouter;

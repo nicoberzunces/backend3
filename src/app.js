@@ -16,6 +16,9 @@ mongoose.connect(uri)
     .then(() => console.log('Conexión a MongoDB exitosa'))
     .catch(err => console.log('Error al conectar a MongoDB:', err));
 
+    import { swaggerSpec, swaggerUi } from './swagger.js';
+
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);

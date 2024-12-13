@@ -16,5 +16,9 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "description": ""
+    "description": "",
+    "swagger-ui-express": "^4.6.2",
+    "swagger-jsdoc": "^6.2.8"
+
 }
+
