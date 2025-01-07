@@ -1,32 +1,27 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: kubeservice2
-spec:
-  selector:
-    app: kubeusers
-  ports:
-    - port: 80
-      targetPort: 8080
-  type: LoadBalancer
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubeusers
+  name: pet-user-management
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
-      app: kubeusers
+      app: pet-user-management
   template:
     metadata:
       labels:
-        app: kubeusers
+        app: pet-user-management
     spec:
       containers:
-        - name: kubecontainer
-          image: danielvillajuan/clase6:latest
+        - name: api
+          image: nicoberzunces/pet-user-management:latest
           ports:
-            - containerPort: 8080
-          imagePullPolicy: Always
+            - containerPort: 18868
+          env:
+            - name: PORT
+              value: "18868"
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: uri

@@ -20,4 +20,8 @@ Este proyecto es una aplicación de gestión de usuarios y mascotas que permite 
    git clone [https://github.com/nicoberzunces/backend3]
    cd pet-user-management
 
-**Imagen de Docker disponible en [Docker Hub](https://hub.docker.com/r/nicoberzunces02/tu-proyecto)**
+## Docker Image
+
+La imagen Docker del proyecto está disponible en DockerHub:
+
+[https://hub.docker.com/r/nicoberzunces/pet-user-management](https://hub.docker.com/r/nicoberzunces/pet-user-management)

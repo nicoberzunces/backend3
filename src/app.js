@@ -1,28 +1,54 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import mocksRouter from './routes/mocks.router.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import dotenv from 'dotenv';
+import userRouter from './routes/user.router.js'; 
+
+dotenv.config();
 
 const app = express();
-const PORT = 18868;
+const PORT = process.env.PORT || 8080;
+const MONGO_URI = process.env.MONGO_URI;
 
 app.use(express.json());
-app.use('/api/mocks', mocksRouter); 
 
-import mongoose from 'mongoose';
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API de Gestión de Usuarios y Mascotas',
+            version: '1.0.0',
+            description: 'API para gestionar usuarios y sus mascotas.',
+        },
+        servers: [
+            {
+                url: `http://localhost:${PORT}`,
+            },
+        ],
+    },
+    apis: ['./routes/*.js'], 
+};
 
-const uri = 'mongodb+srv://nicoberzunces02:DnZcOn4cUs3jdfca@coderback.kjuhq.mongodb.net/CoderBack?retryWrites=true&w=majority';
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-mongoose.connect(uri)
+
+app.use('/api/users', userRouter);
+
+
+mongoose
+    .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Conexión a MongoDB exitosa'))
-    .catch(err => console.log('Error al conectar a MongoDB:', err));
+    .catch((error) => {
+        console.error('Error al conectar a MongoDB:', error.message);
+        process.exit(1); 
+    });
 
-    import { swaggerSpec, swaggerUi } from './swagger.js';
-
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
 
-
+export default app;
 
